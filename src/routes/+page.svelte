@@ -48,13 +48,14 @@
 
         const loader = new OBJLoader(); 
         loader.load( 
-            'assets/Grat.obj', 
+            'assets/Grat2.obj', 
             function (object) {
                 try {
                     object.traverse((child) => {
+                        console.log("EEE", typeof(child))
                         if (child instanceof THREE.Mesh) {
                             const positionAttribute = child.geometry.attributes.position;
-                            
+                            console.log("LLELENGHTH =", positionAttribute.length)
                             if (positionAttribute && positionAttribute.array) {
                                 const positions = positionAttribute.array;
                                 for (let i = 0; i < positions.length; i++) {
@@ -65,21 +66,24 @@
                             }
                             console.log('Vertices:', _gradHatVertices.length);
                         }
+                        else{
+                            console.log("noo");
+                        }
                     });
 
                     // Log after the OBJ is fully loaded and processed
                     console.log('Vertices collected:', _gradHatVertices.length);
-                    try{
-                        let filt = new Array(_gradHatVertices.length)
-                        for(let i=0; i<_gradHatVertices.length; i+=3){
-                            filt[i] = filt[i+1] = filt[i+2] = Math.random()
-                        }
-                        _gradHatVertices = _gradHatVertices.filter((_, idx) => filt[idx] < 0.02);
-                        console.log('After reduceds:', _gradHatVertices.length);
-                    }
-                    catch (error) {
-                        console.log('Error as:', error)
-                    }
+                    // try{
+                    //     let filt = new Array(_gradHatVertices.length)
+                    //     for(let i=0; i<_gradHatVertices.length; i+=3){
+                    //         filt[i] = filt[i+1] = filt[i+2] = Math.random()
+                    //     }
+                    //     _gradHatVertices = _gradHatVertices.filter((_, idx) => filt[idx] < 0.02);
+                    //     console.log('After reduceds:', _gradHatVertices.length);
+                    // }
+                    // catch (error) {
+                    //     console.log('Error as:', error)
+                    // }
                     
                     // const geometry = new THREE.BufferGeometry();
                     gradHatVertices = new Float32Array(_gradHatVertices);
@@ -135,7 +139,7 @@
         let originalPosition = []
 
         const _SphereMaterial = new THREE.PointsMaterial({
-            size: 0.01,
+            size: 0.02,
             color: 0x000000,
             transparent: true,
             opacity: 0.9
