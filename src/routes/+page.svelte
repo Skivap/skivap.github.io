@@ -232,20 +232,19 @@
 
     function animateToTarget(startPositions:number[], endPositions:Float32Array, duration:number) {
         if (elapsed > duration) return;
-        elapsed += 1 / 60; // Assuming 60 FPS
+        elapsed += 1 / 60;
         const t = Math.min(elapsed / duration, 1);
 
-        // Interpolate each vertex position from start to end using the lerp function
         const interpolatedPositions = startPositions.map((start, index) => {
             return lerp(start, endPositions[index], t);
         });
 
-        // Update geometry with new interpolated positions
+        _spherePosition = interpolatedPositions
+
         const verticesArray = new Float32Array(interpolatedPositions);
         geometry.setAttribute('position', new THREE.Float32BufferAttribute(verticesArray, 3));
         geometry.attributes.position.needsUpdate = true;
 
-        // Continue the animation if not yet complete
         if (t < 1) {
             requestAnimationFrame(() => animateToTarget(startPositions, endPositions, duration));
         }
@@ -276,16 +275,16 @@
             // }
         }
         else if(flag == 1){ // Switch to Insta
-            animateToTarget(_spherePosition, instaVertices, 15);
+            animateToTarget(_spherePosition, instaVertices, 100);
         }
         else if(flag == 2){ // Switch to Facebook
-            animateToTarget(_spherePosition, facebookVertices, 15);
+            animateToTarget(_spherePosition, facebookVertices, 100);
         }
         else if(flag == 3){ // Switch to Github
-            animateToTarget(_spherePosition, githubVertices, 15);
+            animateToTarget(_spherePosition, githubVertices, 100);
         }
         else if(flag == 4){
-            animateToTarget(_spherePosition, originalPosition, 15);
+            animateToTarget(_spherePosition, originalPosition, 100);
         }
     }
 </script>
