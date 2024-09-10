@@ -6,6 +6,7 @@
     import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
     import Stats from 'three/examples/jsm/libs/stats.module.js';
+    import { onMount } from 'svelte';
 
     let instaVertices: Float32Array;
     let facebookVertices: Float32Array;
@@ -16,7 +17,7 @@
 
     let flag = 0;
 
-    if (browser) {
+    onMount(() => { if (browser) {
 
         const model3D = document.getElementById('3dmodel')
 
@@ -225,7 +226,7 @@
         }
 
         animate();
-    }
+    }});
 
     function lerp(start:number, end:number, t:number) {
         return start + (end - start) * t;
