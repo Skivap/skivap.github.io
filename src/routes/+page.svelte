@@ -1,4 +1,6 @@
 <script lang="ts">
+    export const prerender = true;
+
     import { browser } from '$app/environment'
     import * as THREE from "three"
     import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
@@ -205,11 +207,11 @@
         // ====================== ====================== ====================== ======================
         // Animation
 
-        const stats = new Stats()
-        document.body.appendChild(stats.dom)
+        // const stats = new Stats()
+        // document.body.appendChild(stats.dom)
 
         function animate() {
-            stats.begin()
+            // stats.begin()
             
             change()
             requestAnimationFrame(animate);
@@ -219,7 +221,7 @@
             camera.lookAt(0, 0, 0)
             renderer.render(scene, camera);
 
-            stats.end()
+            // stats.end()
         }
 
         animate();
